@@ -52,29 +52,32 @@ $title = "Proto";
 require_once 'lib/siteConstant.php';
 
 //Email Varification
+// use PHPMailer\PHPMailer\PHPMailer;
+// use PHPMailer\PHPMailer\Exception;
+
+// require 'PHPMailer/src/Exception.php';
+// require 'PHPMailer/src/PHPMailer.php';
+// require 'PHPMailer/src/SMTP.php';
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
+require 'assets/thirdparty/PHPmailer/src/Exception.php';
+require 'assets/thirdparty/PHPmailer/src/PHPMailer.php';
+require 'assets/thirdparty/PHPmailer/src/SMTP.php';
 
-require 'PHPMailer/src/Exception.php';
-require 'PHPMailer/src/PHPMailer.php';
-require 'PHPMailer/src/SMTP.php';
 $mail = new PHPMailer(true);
 try {
 
-  // Server settings
-  $mail->SMTPDebug = 0;
-  $mail->isSMTP(); // Send using SMTP
-  $mail->Host       = 'mail.mailtest.radixweb.net'; // Set the SMTP server to send through
-  $mail->SMTPAuth   = true; // Enable SMTP authentication
-  $mail->Username   = ''; // SMTP username
-  $mail->Password   = ''; // SMTP password
-  $mail->SMTPSecure = 'tls'; // Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` encouraged
-  $mail->Port       = 587; // TCP port to connect to, use 465 for `PHPMailer::ENCRYPTION_SMTPS` above
-  // Recipients
-  $mail->setFrom('', 'Proto');
-  $mail->addAddress(base64_decode($_GET['email']));     // Add a recipient
+  $mail->isSMTP();
+  $mail->Host = 'smtp.gmail.com';
+  $mail->SMTPAuth = true;
+  $mail->Username = ''; //your email
+  $mail->Password = ''; //your Password
+  $mail->SMTPSecure = 'ssl';
+  $mail->Port = '465';
+  $mail->setFrom(''); //your email
+  $mail->addAddress(base64_decode($_GET['email']));
+  $mail->isHTML(true);
   $otp = rand(1000, 9999);
-  $mail->isHTML(true);                                  // Set email format to HTML
   $mail->Subject = 'One time Password for Proto registration';
   $mail->Body    = ' </table><table role="presentation"
     style="width: 100%; border-collapse: collapse; border: 0px; border-spacing: 0px; font-family: Arial, Helvetica, sans-serif; background-color: rgb(239, 239, 239);">
