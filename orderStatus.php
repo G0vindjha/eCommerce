@@ -52,12 +52,23 @@ require_once 'lib/navbar.php';
                         ' . substr_replace($value["summary"], "...", 50) . '
                     </p>
                 </div>
-                <a name="" id="" class="btn btn1 btn btn1-primary" href="'.SITE_URL.'eCommerce/productInfo.php?product_id='. base64_encode($value["product_id"]) . '" role="button">View Product</a>
+                <a name="" id="" class="btn btn1 btn btn1-primary products" href="'.SITE_URL.'eCommerce/productInfo.php?product_id='. base64_encode($value["product_id"]) . '" role="button">View Product</a>
             </div>
         </div>';
         }
         ?>
     </div>
+    <style>
+     .products, .footerTheme {
+        background-color: <?php echo $color1;?> !important;
+        color: <?php echo $color2;?> !important;
+    }
+    .products:hover{
+        background-color: <?php echo $color3;?> !important;
+        color: <?php echo $color4;?> !important;
+
+    }
+    </style>
 <?php
 echo $script;
 require_once 'lib/footer.php';

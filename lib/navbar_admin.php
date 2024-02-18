@@ -142,6 +142,13 @@ if ($_POST['action'] == 'adminLogout') {
           </a>
         </li>
         <li class="nav-item">
+          <a class="nav-link collapsed f-flex gap-1" href="<?php echo SITE_URL;?>eCommerce/admin/theme.php">
+          <i class="fab fa-affiliatetheme"></i>
+            <!-- <i class="fa-brands fa-font-awesome"></i> -->
+            <span>Theme</span>
+          </a>
+        </li>
+        <li class="nav-item">
           <span>
             <div class="accordion accordion-flush nav-link p-0" id="CategoryAccordion">
               <div class="accordion-item px-3">

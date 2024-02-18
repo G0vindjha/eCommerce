@@ -130,7 +130,7 @@ if ($_POST['action'] == 'customerLogin') {
                         '.substr_replace($value["summary"], "...", 50).'
                     </p>
                 </div>
-                <a name="" id="" class="btn btn1 btn btn1-primary" href="'.SITE_URL.'eCommerce/productInfo.php?product_id='. base64_encode($value["product_id"]) . '" role="button">View Product</a>
+                <a name="" id="" class="btn btn1 btn btn1-primary products" href="'.SITE_URL.'eCommerce/productInfo.php?product_id='. base64_encode($value["product_id"]) . '" role="button">View Product</a>
             </div>
         </div>';
         }
@@ -165,11 +165,23 @@ if(isset($_GET['category_id'])){
                         '.substr_replace($value["summary"], "...", 50).'
                     </p>
                 </div>
-                <a name="" id="" class="btn btn1 btn btn1-primary" href="'.SITE_URL.'eCommerce/productInfo.php?product_id='. base64_encode($value["product_id"]) . '" role="button">View Product</a>
+                <a name="" id="" class="btn btn1 btn btn1-primary products" href="'.SITE_URL.'eCommerce/productInfo.php?product_id='. base64_encode($value["product_id"]) . '" role="button">View Product</a>
             </div>
         </div>';
     }
 }
+$data = array(
+    ":status" => array(
+        "value" => '1',
+        "type" => 'ENUM'
+    ),
+);
+$conn = new Connection();
+$result = $conn->select("theme",'*','','','status = :status',$data);
+$color1 = $result[0]['color1'];
+$color2 = $result[0]['color2'];
+$color3 = $result[0]['color3'];
+$color4 = $result[0]['color4'];
 require_once 'siteConstant.php';
 require_once 'header.php';
 ?>
@@ -180,7 +192,7 @@ require_once 'header.php';
             <div class="modal-header">
                 <div class="d-flex justify-content-center py-4">
                     <div class="logo d-flex align-items-center w-auto justify-content-center">
-                        <img class="mx-auto" src="<?php echo SITE_URL; ?>eCommerce/assets/image/Logo.png" alt="">
+                        <img class="mx-auto" src="<?php echo SITE_URL; ?>eCommerce/assets/image/Logo.png" id="logologin" alt="">
                     </div>
                 </div>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -218,7 +230,7 @@ require_once 'header.php';
                                             </div>
                                             <div class="col-12" id="alert"></div>
                                             <div class="col-12">
-                                                <button class="btn-validation btn btn1 btn-primary w-100 mb-3" type="button" id="customerLogin">Login</button>
+                                                <button class="btn-validation btn btn1 btn-primary w-100 mb-3 products" type="button" id="customerLogin">Login</button>
                                                 <div class="d-flex justify-content-between">
                                                     <a href="<?php echo SITE_URL;?>eCommerce/userRagistration.php">Create Account</a>
                                                     <a id="userPasswordReset" data-bs-toggle="modal" href="#staticBackdrop">Forgot Password</a>
@@ -242,7 +254,7 @@ require_once 'header.php';
             <div class="modal-header">
                 <div class="d-flex justify-content-center py-4">
                     <div class="logo d-flex align-items-center w-auto">
-                        <img src="<?php echo SITE_URL; ?>eCommerce/assets/image/Logo.png" alt="...">
+                        <img src="<?php echo SITE_URL; ?>eCommerce/assets/image/Logo.png" id="logoforgot" alt="...">
                     </div>
                 </div>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -264,7 +276,7 @@ require_once 'header.php';
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-danger" data-bs-dismiss="modal">CANCLE</button>
-                <button type="button" class="btn btn-success" id="forgotPassword">VERIFY</button>
+                <button type="button" class="btn btn-success " id="forgotPassword">VERIFY</button>
             </div>
         </div>
     </div>

@@ -96,22 +96,22 @@ else{
 //pagination start
 $pagination = '<nav aria-label="Page navigation example" class="d-flex justify-content-center">
     <ul class="pagination">
-      <li class="page-item"><a class="page-link" href="orderList.php?page=' . base64_encode($prevPage) . '">Previous</a></li>'; 
+      <li class="page-item"><a class="page-link products" href="orderList.php?page=' . base64_encode($prevPage) . '">Previous</a></li>'; 
 for ($page = 1; $page <= $number_of_page; $page++) {
     //active link
     if((int)(base64_decode($_GET['page'])) == $page){
         $pagination .='
-        <li class="page-item"><a class="page-link active" href = "orderList.php?page=' . base64_encode($page) . '">' . $page . '</a></li>
+        <li class="page-item"><a class="page-link active products" href = "orderList.php?page=' . base64_encode($page) . '">' . $page . '</a></li>
         ';
     }
     else{
         $pagination .='
-        <li class="page-item"><a class="page-link" href = "orderList.php?page=' . base64_encode($page) . '">' . $page . '</a></li>
+        <li class="page-item"><a class="page-link products" href = "orderList.php?page=' . base64_encode($page) . '">' . $page . '</a></li>
         ';
     }
      
 }
-$pagination .= '<li class="page-item"><a class="page-link" href="orderList.php?page=' . base64_encode($nextPage) . '">Next</a></li>
+$pagination .= '<li class="page-item"><a class="page-link products" href="orderList.php?page=' . base64_encode($nextPage) . '">Next</a></li>
 </ul>
 </nav>';
 //pagination ends
@@ -121,8 +121,8 @@ $pagination .= '<li class="page-item"><a class="page-link" href="orderList.php?p
         <div class="row d-flex justify-content-center align-items-center h-100">
             <div class="col-lg-12 col-xl-12">
                 <!-- Product list card -->
-                <div class="card" style="border-radius: 10px;border:2px solid #118383;">
-                    <div class="card-header px-4 py-5 " style="background-color: #118383;">
+                <div class="card products" style="border-radius: 10px;border:2px solid #118383;">
+                    <div class="card-header px-4 py-5 products" style="background-color: #118383;">
                         <h5 class="text-light mb-0">Thanks for your Order,<?php echo '<a class="text-light" href="'.SITE_URL.'eCommerce/customer_profile.php">'.$_SESSION['userName'].'</a>' ?> !!!</h5>
                     </div>
                     <div class="card shadow-0 border mb-4 d-none d-md-block">
@@ -154,6 +154,13 @@ $pagination .= '<li class="page-item"><a class="page-link" href="orderList.php?p
             </div>
         </div>
     </div>
+    <style>
+     .products, .footerTheme {
+        background-color: <?php echo $color1;?> !important;
+        color: <?php echo $color2;?> !important;
+        border: 2px solid <?php echo $color1;?> !important ;
+    }
+</style>
 <?php echo $pagination;?>
 </section>
 <?php

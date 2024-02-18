@@ -122,15 +122,15 @@ require_once 'lib/header_user.php';
 require_once 'lib/navbar.php';
 ?>
 <div class="card my-3 d-flex mx-auto w-25">
-  <div class="card-body">
-    <h5 class="card-title text-center"><img src="./assets/image/Logo.png" alt="" class="w-50"></h5>
+  <div class="card-body w-50 mx-auto">
+    <h5 class="card-title text-center"><img src="./assets/image/Logo.png" id="verifyLogo" alt="" class="w-50"></h5>
     <form method="post" id="otpValidation" class="mt-5">
       <div class="mb-3">
         <label for="" class="form-label">Enter OTP : </label>
         <input type="number" class="form-control" name="otp" id="otp" aria-describedby="helpId" placeholder="Enter OTP">
         <small id="helpId" class="form-text text-success">Check Mail</small>
       </div>
-      <button type="button" class="btn btn-success col-12" id="verifyotp">Verify</button>
+      <button type="button" class="btn btn-success col-4 products" id="verifyotp">Verify</button>
     </form>
     <div id="changePassForm" class="d-none">
       <form method="post">
@@ -143,12 +143,23 @@ require_once 'lib/navbar.php';
           <label for="confirmPassword" class="form-label">Confirm Password</label>
           <input type="password" class="form-control" id="confirmPassword">
         </div>
-        <button type="button" id="ChangePassword" class="btn btn-success col-12">Change Password</button>
+        <button type="button" id="ChangePassword" class="btn btn-success col-4 products">Change Password</button>
         <div class="forgotPasswordValidate"></div>
       </form>
     </div>
    </div>
 </div>
+<style>
+     .products, .footerTheme {
+        background-color: <?php echo $color1;?> !important;
+        color: <?php echo $color2;?> !important;
+    }
+    .products:hover{
+        background-color: <?php echo $color3;?> !important;
+        color: <?php echo $color4;?> !important;
+
+    }
+</style>
 <Script>
   $("#ChangePassword").click(function () {
     var newPassword = $("#newPassword").val();

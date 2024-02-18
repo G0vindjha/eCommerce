@@ -152,7 +152,7 @@ if (!isset($_SESSION['customer_id'])) {
                         </div>
                         <div class="col">
                             <!-- Button trigger modal -->
-                            <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#addAddressModal" style="background-color: #118383; color:white;">
+                            <button type="button" class="btn products" data-bs-toggle="modal" data-bs-target="#addAddressModal" style="background-color: #118383; color:white;">
                                 Add Address
                             </button>
 
@@ -187,7 +187,7 @@ if (!isset($_SESSION['customer_id'])) {
                     </div>
                     <div class="mt-3">
                         <form method="post">
-                            <button type="submit" name="orderPlace" class="btn btn-success w-100 shadow-0 mb-2">Place Order</button>
+                            <button type="submit" name="orderPlace" class="products btn btn-success w-100 shadow-0 mb-2">Place Order</button>
                         </form>
                         <a href="<?php echo SITE_URL; ?>eCommerce/index.php" class="btn btn-outline-secondary w-100 border mt-2"> Back to shop </a>
                     </div>
@@ -220,6 +220,17 @@ if (!isset($_SESSION['customer_id'])) {
         </div>
     </div>
 </div>
+<style>
+    .products, .footerTheme {
+        background-color: <?php echo $color1;?> !important;
+        color: <?php echo $color2;?> !important;
+    }
+    .products:hover{
+        background-color: <?php echo $color3;?> !important;
+        color: <?php echo $color4;?> !important;
+
+    }
+</style>
 <?php
 echo $script;
 require_once 'lib/footer.php';

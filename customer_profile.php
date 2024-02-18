@@ -291,6 +291,17 @@ echo $pop;
         </div>
     </section>
 </div>
+<style>
+     .products, .footerTheme {
+        background-color: <?php echo $color1;?> !important;
+        color: <?php echo $color2;?> !important;
+    }
+    .products:hover{
+        background-color: <?php echo $color3;?> !important;
+        color: <?php echo $color4;?> !important;
+
+    }
+</style>
 <?php
 echo $script;
 require_once 'lib/footer.php';

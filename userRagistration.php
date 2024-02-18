@@ -105,7 +105,7 @@ if (isset($_POST['submit'])) {
 echo $pop;
 ?>
 <!-- User Ragistration form -->
-<div class="col-12 col-md-12 mb-3">
+<div class="col-10 col-md-10 mx-auto mb-3">
     <div class="container-fluid mt-3 border border-primary border-3 p-3 rounded">
         <div class="d-flex justify-content-center mb-3"><span class="fs-2 text-primary">Customer <?php echo $operation; ?></span></div>
         <div class="d-flex justify-content-center mb-3">
@@ -194,14 +194,25 @@ echo $pop;
                 </div>
             </div>
             <div class="d-flex gap-2 col-12">
-                <button class="btn-validation btn btn-success p-2 col-5 mx-auto" id='submit' type="submit" name="submit"><?php echo $buttonName ?></button>
-                <button class="btn btn-danger p-2 col-5 mx-auto" type="reset">Reset form</button>
+                <button class="btn-validation btn btn-success p-2 col-3 mx-auto" id='submit' type="submit" name="submit"><?php echo $buttonName ?></button>
+                <button class="btn btn-danger p-2 col-3 mx-auto" type="reset">Reset form</button>
                 <?php echo "<br>" . $valid; ?>
             </div>
             <?php echo "<br>" . $validate; ?>
         </form>
     </div>
 </div>
+<style>
+     .products, .footerTheme {
+        background-color: <?php echo $color1;?> !important;
+        color: <?php echo $color2;?> !important;
+    }
+    .products:hover{
+        background-color: <?php echo $color3;?> !important;
+        color: <?php echo $color4;?> !important;
+
+    }
+</style>
 <?php
 echo $script;
 require_once 'lib/footer.php';
