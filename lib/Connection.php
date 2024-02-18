@@ -8,7 +8,7 @@ class Connection
     public function __construct()
     {
         try {
-             $this->conn = new PDO("mysql:host=localhost;dbname=eCommerce", 'root', '');
+             $this->conn = new PDO("mysql:host=localhost;dbname=eCommerce", 'root', 'Govind@1990');
             } catch (PDOException $e) {
             die("Connection failed: " . $e->getMessage());
         }
@@ -65,14 +65,19 @@ class Connection
         }
     }
     //Update Method
-    public function update($table, $data, $where)
+    public function update($table, $data, $where = 'status')
     {
         $set = "";
         foreach ($data as $key => $value) {
             $set .= "$key=:$key, ";
         }
         $set = rtrim($set, ", ");
-        $sql = "UPDATE $table SET $set WHERE $where";
+        if($where == 'status'){
+            $sql = "UPDATE $table SET $set";
+        }
+        else{
+            $sql = "UPDATE $table SET $set WHERE $where";
+        }
         $stmt = $this->conn->prepare($sql);
         return $stmt->execute($data);
     }

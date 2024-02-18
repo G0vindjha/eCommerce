@@ -121,7 +121,7 @@ require_once '../lib/header.php';
                                         <?php echo $out; ?>
                                     </div>
                                     <div class="col-12">
-                                        <button class="btn-validation btn btn-primary w-100 mb-3" type="submit" name="loginAdmin" id="adminLogin">Login</button>
+                                        <button class="btn-validation btn btn-primary w-100 mb-3" style="background-color: #118383;" type="submit" name="loginAdmin" id="adminLogin">Login</button>
                                     </div>
                                 </form>
                                 <!-- Admin Login Form End -->

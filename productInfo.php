@@ -119,7 +119,7 @@ require_once 'lib/navbar.php';
                         </div>
                     </div>
                 </div>
-                <button type="submit" id="addToCart" name="addToCart" class="btn btn-primary shadow-0"><i class="me-1 fa fa-shopping-basket"></i> Add to cart</button>
+                <button type="submit" id="addToCart" name="addToCart" class="products btn btn-primary shadow-0"><i class="me-1 fa fa-shopping-basket"></i> Add to cart</button>
                 <?php echo "<br>".$errorMsg;?>    
                 </form>
                 <hr>
@@ -133,6 +133,17 @@ require_once 'lib/navbar.php';
         </main>
     </div>
 </div>
+<style>
+     .products, .footerTheme {
+        background-color: <?php echo $color1;?> !important;
+        color: <?php echo $color2;?> !important;
+    }
+    .products:hover{
+        background-color: <?php echo $color3;?> !important;
+        color: <?php echo $color4;?> !important;
+
+    }
+</style>
 <?php
 echo $script;
 require_once 'lib/footer.php';

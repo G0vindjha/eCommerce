@@ -22,6 +22,14 @@ if ($_POST['action'] == 'resetAdminPassword') {
   }
   exit;
 }
+// echo '
+// <script>
+// $(".navbar1").addClass("redBg");
+// $(".nav-link").addClass("whiteText"); 
+// $(".btn1").addClass("redBg");
+// $(".footer").addClass("redBg");
+// </script>
+// ';
 ?>
 <!DOCTYPE html>
 <html lang="en">

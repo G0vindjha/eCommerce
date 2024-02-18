@@ -321,4 +321,18 @@ div:where(.swal2-container1) {
   border-color: #118383;
 }
 
+.redBg {
+  background-color: #A94438 !important; 
+}
+
+.whiteText{
+  color: white;
+}
+
+.blackText{
+  color: black;
+}
+.defaultTheme{
+  background-color: #118383 !important;
+}
 /* Pagination end */

@@ -156,7 +156,7 @@ foreach ($result as $value) {
                 </div>
             </div>
             <div class="col-6 align-self-end text-end">
-                <img src="<?php echo SITE_URL; ?>Day19/Assignments/Project1/admin/assets/img/customer-support.png" alt="Customer Support" class="img-fluid illustration-img">
+                <img src="<?php echo SITE_URL; ?>eCommerce/assets/image/customer-support.png" alt="Customer Support" class="img-fluid illustration-img">
             </div>
         </div>
     </div>
