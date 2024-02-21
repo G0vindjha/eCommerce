@@ -1,4 +1,5 @@
 <?php
+use PHPMailer\PHPMailer\PHPMailer;
 require_once 'siteConstant.php';
 //Class Created
 class Connection
@@ -139,6 +140,59 @@ class Connection
              else {
                 echo "Data is not Deleted!!";
             }
+        }
+    }
+    public function orderNotification($notification,$dataArr = 'null'){
+        if ($notification == 'order') {
+            $mail = new PHPMailer(true);
+            $mail->isSMTP();
+            $mail->Host = 'smtp.gmail.com';
+            $mail->SMTPAuth = true;
+            $mail->Username = 'shopbyproto@gmail.com'; //your email
+            $mail->Password = 'jxkkpwdwbyjhegao'; //your Password
+            $mail->SMTPSecure = 'ssl';
+            $mail->Port = '465';
+            $mail->setFrom('shopbyproto@gmail.com'); //your email
+            $mail->addAddress($dataArr['useremail']);
+            $mail->isHTML(true);
+            $mail->Subject = 'Order confirm' . $dataArr["productname"];
+            $mail->Body = ' </table><table role="presentation"
+                style="width: 100%; border-collapse: collapse; border: 0px; border-spacing: 0px; font-family: Arial, Helvetica, sans-serif; background-color: rgb(239, 239, 239);">
+                <tbody>
+                  <tr>
+                    <td align="center" style="padding: 1rem 2rem; vertical-align: top; width: 100%;">
+                      <table role="presentation"
+                        style="max-width: 600px; border-collapse: collapse; border: 0px; border-spacing: 0px; text-align: left;">
+                        <tbody>
+                          <tr>
+                            <td style="padding: 40px 0px 0px;">
+                              <div style="text-align: left;">
+                                <div class="text-center" style="padding-bottom: 20px;"><h3 class="text-center" style="color:#118383">PROTO</h3></div>
+                              </div>
+                              <div style="padding: 20px; background-color: rgb(255, 255, 255);">
+                                <div style="color: rgb(33, 22, 90); text-align: center;">
+                                  <h1 style="margin: 1rem 0">Invoice</h1>
+                                  <p>Thank you ' . $dataArr["username"] . ' for you order from Proto.</p>
+                                  <p>Your ' . $dataArr["productname"] . ' is ariving soon. </p>
+                                  <p>Your Delievery address is ' . $dataArr["address"] . ' </p>
+                                  <p style="padding-bottom: 16px">You have paid : <strong style="font-size: 130%;background-color:#118383;padding:10px; border-radius:5px;"> Rs.' . $dataArr["orderamount"] . ' </strong></p>
+                                  <p style="padding-bottom: 16px">You have ordered ' . $dataArr["quantity"] . ' X ' . $dataArr["productname"] . ' on ' . $dataArr["orderDate"] . ' worth of ' . $dataArr["orderamount"] . ' </p>
+                                  <p style="padding-bottom: 16px">Thanks,<br>The Proto team</p>
+                                </div>
+                              </div>
+                              <div style="padding-top: 20px; color: rgb(153, 153, 153); text-align: center;">
+                                <p style="padding-bottom: 16px">Thank you for Joining ♥ </p>
+                              </div>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </td>
+                  </tr>
+                </tbody>
+                </table>';
+            $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
+            $mail->send();
         }
     }
 }

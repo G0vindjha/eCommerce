@@ -1,4 +1,7 @@
 <?php
+require 'assets/thirdparty/PHPmailer/src/Exception.php';
+require 'assets/thirdparty/PHPmailer/src/PHPMailer.php';
+require 'assets/thirdparty/PHPmailer/src/SMTP.php';
 //session starts
 session_id("customerLoginSession");
 session_start();
@@ -111,12 +114,24 @@ if (!isset($_SESSION['customer_id'])) {
                         "type" => 'INT'
                     ),
                 );
+                $userData = array(
+                    ":customer_id" => array(
+                        "value" => $_SESSION['customer_id'],
+                        "type" => 'INT'
+                    ),
+                );
+                $userResult = $conn->select("Customers", "*", null, null, "customer_id=:customer_id", $userData);
+                $username = $userResult[0]['name'];
+                $useremail = $userResult[0]['email'];
+                $useraddress = $userResult[0]['address'];
+
                 //insert in order table
                 $conn->insert("Orders", $dataArr);
                 //delete from cart table
                 $conn->delete("Cart", "customer_id = :customer_id", $datadelete, "no");
                 //update the product table
                 $result = $conn->select("Products", "*", null, null, "product_id=:product_id", $dataSelectQuantity);
+                $productName = $result[0]["name"];
                 $updatedQuantity = $result[0]['quantity'] - $quantity[$i];
                 $category = $result[0]['category_id'];
                 $dataArr = array(
@@ -124,6 +139,17 @@ if (!isset($_SESSION['customer_id'])) {
                     "product_id" => $product_id[$i]
                 );
                 $result = $conn->update('Products', $dataArr, 'product_id = :product_id');
+                
+                $arr = array(
+                    'username' => $username,
+                    'useremail' => $useremail,
+                    'productname' => $productName,
+                    'orderamount' => $totalAmount[$i],
+                    'address' => $useraddress,
+                    'quantity' => $quantity[$i],
+                    "orderDate" => date("Y/m/d"),
+                );
+                $conn->orderNotification('order',$arr);
             }
             echo "<script>
             window.location.href = '" . SITE_URL . "eCommerce/orderStatus.php?status=" . base64_encode('success') . "&category=" . base64_encode($category) . "';
