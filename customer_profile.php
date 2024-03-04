@@ -14,8 +14,9 @@ if (isset($_POST['submit'])) {
     $phone_Number = $_POST['phone_Number'];
     $gender = $_POST['gender'];
     $street_Address = $_POST['street_Address'];
+    $pincode = $_POST['pincode'];
     $pp = $_POST['profile_Pic_filled'];
-    if ($name == null || $email == null || $password == null || $phone_Number == null || $gender == null || $street_Address == null ||  is_numeric($phone_Number) == false) {
+    if ($name == null || $email == null || $password == null || $phone_Number == null || $gender == null || $street_Address == null ||  is_numeric($phone_Number) == false || $pincode == null) {
         $validate = "<div><small class='text-danger'>Enter data Properly !!</small></div>";
     } else {
         if ($_FILES['image']['name'] != '') {
@@ -36,6 +37,7 @@ if (isset($_POST['submit'])) {
                         "email" =>  $email,
                         "password" => $password,
                         "address" => $street_Address,
+                        "pincode" => $pincode,
                         "phone_number" => $phone_Number,
                         "customer_id" => $_SESSION['customer_id']
                     );
@@ -108,6 +110,7 @@ if (isset($_POST['submit'])) {
                 "email" =>  $email,
                 "password" => $password,
                 "address" => $street_Address,
+                "pincode" => $pincode,
                 "phone_number" => $phone_Number,
                 "customer_id" => $_SESSION['customer_id']
             );
@@ -135,7 +138,7 @@ $data = array(
     ),
 );
 $conn = new Connection();
-$result = $conn->select('Customers', ('customer_id,name,password,gender,email,address,`phone_Number`,`image`'), null, null, 'customer_id = :customer_id', $data);
+$result = $conn->select('Customers', ('customer_id,name,password,gender,email,address,pincode,`phone_Number`,`image`'), null, null, 'customer_id = :customer_id', $data);
 $leftProfile = "<div class='card'>
                 <div class='card-body profile-card pt-4 d-flex flex-column align-items-center'>
                     <img src='" . SITE_URL . "eCommerce/assets/image/customerUpload/" . $result[0]['customer_id'] . "/" . $result[0]['image'] . "' alt='Profile' class='rounded-circle w-50'>
@@ -150,6 +153,7 @@ $phone_Number = $result[0]['phone_Number'];
 $address = $result[0]['address'];
 $password = $result[0]['password'];
 $image = $result[0]['image'];
+$pincode = $result[0]['pincode'];
 $title = 'Home Page';
 require_once 'lib/siteConstant.php';
 require_once 'lib/header_user.php';
@@ -271,13 +275,19 @@ echo $pop;
                                             <label class="form-check-label" for="genderO">Others</label>
                                         </div>
                                     </div>
-                                    <div class="mb-3">
-                                        <label for="street_Address" class="form-label">Address : </label>
-                                        <textarea class="form-control" id="street_Address" placeholder="Enter Address..." name="street_Address" required><?php echo $address ?></textarea>
-                                        <div class="invalid-feedback">
-                                            Enter Address...
-                                        </div>
-                                    </div>
+                                    <div class="mb-3 col">
+                    <label for="street_Address" class="form-label">Street Address : </label>
+                    <textarea class="form-control" id="street_Address" placeholder="Enter Address..." name="street_Address" required><?php echo $address ?></textarea>
+                    <div id="validaddress" class="invalid-feedback">
+                        Enter Address...
+                    </div>
+                </div>
+                  <div class="mb-3 col">
+                  <label for="pincode" class="form-label">Pincode : </label>
+                    <input type="number" class="form-control" id="pincode" name="pincode" placeholder="Enter Pincode..." value="<?php echo $pincode; ?>" required>
+                    <div class="invalid-feedback">Enter Pincode...</div>
+                    <div id='validpincode'></div>
+                </div>
                                     <div class="d-flex gap-2 col-12">
                                         <button class="btn btn-success p-2 col-5 mx-auto" id='submit' type="submit" name="submit">Update Details</button>
                                         <button class="btn btn-danger p-2 col-5 mx-auto" type="reset">Reset form</button>

@@ -149,6 +149,13 @@ if ($_POST['action'] == 'adminLogout') {
           </a>
         </li>
         <li class="nav-item">
+          <a class="nav-link collapsed f-flex gap-1" href="<?php echo SITE_URL;?>eCommerce/admin/coupon.php">
+          <i class="fa-solid fa-percent"></i>
+            <!-- <i class="fa-brands fa-font-awesome"></i> -->
+            <span>Coupons</span>
+          </a>
+        </li>
+        <li class="nav-item">
           <span>
             <div class="accordion accordion-flush nav-link p-0" id="CategoryAccordion">
               <div class="accordion-item px-3">
