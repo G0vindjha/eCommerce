@@ -22,7 +22,7 @@ if (isset($_GET['customer_id'])) {
             "type" => 'INT'
         ),
     );
-    $Result = $conn->select('Customers', ('customer_id,name,gender,email,address,password,`phone_number`,image'), null, null, "customer_id = :customer_id", $data);
+    $Result = $conn->select('Customers', ('customer_id,name,gender,email,address,password,`phone_number`,image,pincode'), null, null, "customer_id = :customer_id", $data);
     $updateResult = $Result[0];
     $imgpath = SITE_URL . 'eCommerce/assets/image/customerUpload/' . $_GET['customer_id'] . '/' . $updateResult['image'];
     $imgfield = "<img src='$imgpath' class='rounded' id='userlogo' alt='...' width='130px'>";
@@ -45,9 +45,10 @@ if (isset($_POST['submit']) && isset($_GET['customer_id'])) {
     $phone_Number = $_POST['phone_Number'];
     $gender = $_POST['gender'];
     $street_Address = $_POST['street_Address'];
+    $pincode = $_POST['pincode'];
     $pp = $_POST['profile_Pic_filled'];
 
-    if ($name == null || $email == null || $password == null || $phone_Number == null || $gender == null || $street_Address == null ||  is_numeric($phone_Number) == false) {
+    if ($name == null || $email == null || $password == null || $phone_Number == null || $gender == null || $street_Address == null ||  is_numeric($phone_Number) == false || $pincode == null) {
         $validate = "<div><small class='text-danger'>Enter data Properly !!</small></div>";
     } else {
         if ($_FILES['profile_Pic']['size']) {
@@ -68,6 +69,7 @@ if (isset($_POST['submit']) && isset($_GET['customer_id'])) {
                         "email" =>  $email,
                         "password" => $password,
                         "address" => $street_Address,
+                        "pincode" => $pincode,
                         "phone_number" => $phone_Number,
                         "customer_id" => $_GET['customer_id']
                     );
@@ -128,6 +130,7 @@ if (isset($_POST['submit']) && isset($_GET['customer_id'])) {
                 "email" =>  $email,
                 "password" => $password,
                 "address" => $street_Address,
+                "pincode" => $pincode,
                 "phone_number" => $phone_Number,
                 "customer_id" => $_GET['customer_id']
             );
@@ -155,7 +158,8 @@ if (isset($_POST['submit']) && !isset($_GET['customer_id'])) {
     $phone_Number = $_POST['phone_Number'];
     $gender = $_POST['gender'];
     $street_Address = $_POST['street_Address'];
-    if ($name == null || $email == null || $password == null || $phone_Number == null || $gender == null || $street_Address == null ||  is_numeric($phone_Number) == false) {
+    $pincode = $_POST['pincode'];
+    if ($name == null || $email == null || $password == null || $phone_Number == null || $gender == null || $street_Address == null ||  is_numeric($phone_Number) == false || $pincode == null) {
         $validate = "<div><small class='text-danger'>Enter data Properly !!</small></div>";
     } else {
         if (isset($_FILES['profile_Pic'])) {
@@ -176,6 +180,7 @@ if (isset($_POST['submit']) && !isset($_GET['customer_id'])) {
                         "email" =>  $email,
                         "password" => $password,
                         "address" => $street_Address,
+                        "pincode" => $pincode,
                         "phone_number" => $phone_Number,
                     );
                     $dataForValidate=array(
@@ -190,6 +195,7 @@ if (isset($_POST['submit']) && !isset($_GET['customer_id'])) {
                         "name" => $name,
                         "email" =>  $email,
                         "address" => $street_Address,
+                        "pincode" => $pincode,
                     );
                     $AddressAdd = $conn->insert('Customer_Address', $dataArr);
                     if ($result == 'error') {
@@ -310,7 +316,7 @@ echo $pop;
             <div class="row justify-content-center align-items-center g-2">
                 <div class="col m-auto p-auto">
                     <label for="phone_Number" class="form-label">Phone Number : </label>
-                    <input type="text" class="form-control" id="phone_Number" name="phone_Number" placeholder="Enter Phone Number..." value="<?php echo $updateResult['phone_number'] ?>" required>
+                    <input type="number" class="form-control" id="phone_Number" name="phone_Number" placeholder="Enter Phone Number..." value="<?php echo $updateResult['phone_number'] ?>" required>
                     <div class="invalid-feedback">Enter Phone Number...</div>
                     <div id='validphone_Number'></div>
                     <?php echo $validPhoneNumber; ?>
@@ -340,13 +346,22 @@ echo $pop;
                     </div>
                 </div>
             </div>
-              <div class="mb-3">
-                <label for="street_Address" class="form-label">Street Address : </label>
-                <textarea class="form-control" id="street_Address" placeholder="Enter Address..." name="street_Address" required><?php echo $updateResult['address'] ?></textarea>
-                <div id="validaddress" class="invalid-feedback">
-                    Enter Address...
+            <div class="row">
+
+                <div class="mb-3 col">
+                    <label for="street_Address" class="form-label">Street Address : </label>
+                    <textarea class="form-control" id="street_Address" placeholder="Enter Address..." name="street_Address" required><?php echo $updateResult['address'] ?></textarea>
+                    <div id="validaddress" class="invalid-feedback">
+                        Enter Address...
+                    </div>
                 </div>
-            </div>
+                  <div class="mb-3 col">
+                  <label for="pincode" class="form-label">Pincode : </label>
+                    <input type="number" class="form-control" id="pincode" name="pincode" placeholder="Enter Pincode..." value="<?php echo $updateResult['pincode'] ?>" required>
+                    <div class="invalid-feedback">Enter Pincode...</div>
+                    <div id='validpincode'></div>
+                </div>
+            </div> 
             <div class="d-flex gap-2 col-12">
                 <button class="btn-validation btn btn-success p-2 col-5 mx-auto" id='submit' type="submit" name="submit"><?php echo $buttonName ?></button>
                 <button class="btn btn-danger p-2 col-5 mx-auto" type="reset">Reset form</button>
