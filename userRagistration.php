@@ -14,7 +14,8 @@ if (isset($_POST['submit'])) {
     $phone_Number = $_POST['phone_Number'];
     $gender = $_POST['gender'];
     $street_Address = $_POST['street_Address'];
-    if ($name == null || $email == null || $password == null || $phone_Number == null || $gender == null || $street_Address == null ||  is_numeric($phone_Number) == false) {
+    $pincode = $_POST['pincode'];
+    if ($name == null || $email == null || $password == null || $phone_Number == null || $gender == null || $street_Address == null ||  is_numeric($phone_Number) == false || $pincode == null) {
         $validate = "<div><small class='text-danger'>Enter data Properly !!</small></div>";
     } else {
         if (isset($_FILES['profile_Pic'])) {
@@ -35,6 +36,7 @@ if (isset($_POST['submit'])) {
                         "email" =>  $email,
                         "password" => $password,
                         "address" => $street_Address,
+                        "pincode" => $pincode,
                         "phone_number" => $phone_Number,
                     );
                   
@@ -50,6 +52,7 @@ if (isset($_POST['submit'])) {
                         "name" => $name,
                         "email" =>  $email,
                         "address" => $street_Address,
+                        "pincode" => $pincode
                     );
                     $AddressAdd = $conn->insert('Customer_Address', $dataArr);
                     if ($result == 'error') {
@@ -186,13 +189,19 @@ echo $pop;
                 </div>
             </div>
 
-            <div class="mb-3">
-                <label for="street_Address" class="form-label">Street Address : </label>
-                <textarea class="form-control" id="street_Address" placeholder="Enter Address..." name="street_Address" required><?php echo $updateResult['address'] ?></textarea>
-                <div id="validaddress" class="invalid-feedback">
-                    Enter Address...
+            <div class="mb-3 col">
+                    <label for="street_Address" class="form-label">Street Address : </label>
+                    <textarea class="form-control" id="street_Address" placeholder="Enter Address..." name="street_Address" required><?php echo $updateResult['address'] ?></textarea>
+                    <div id="validaddress" class="invalid-feedback">
+                        Enter Address...
+                    </div>
                 </div>
-            </div>
+                  <div class="mb-3 col">
+                  <label for="pincode" class="form-label">Pincode : </label>
+                    <input type="number" class="form-control" id="pincode" name="pincode" placeholder="Enter Pincode..." value="<?php echo $updateResult['pincode'] ?>" required>
+                    <div class="invalid-feedback">Enter Pincode...</div>
+                    <div id='validpincode'></div>
+                </div>
             <div class="d-flex gap-2 col-12">
                 <button class="btn-validation btn btn-success p-2 col-3 mx-auto" id='submit' type="submit" name="submit"><?php echo $buttonName ?></button>
                 <button class="btn btn-danger p-2 col-3 mx-auto" type="reset">Reset form</button>

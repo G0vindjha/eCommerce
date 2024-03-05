@@ -1,4 +1,15 @@
 <?php
+
+session_start(); // Start the session
+
+$showModel = false; // Initialize $showModel to false
+
+// Check if $_SESSION['start'] is set and equal to 'start'
+if (isset($_SESSION['start']) && $_SESSION['start'] === 'start') {
+    $showModel = true; // If true, set $showModel to true
+} else {
+    $_SESSION["start"] = "start"; // Set $_SESSION["start"] to 'start' if it's not already set
+}
 $title = "Proto";
 require_once 'lib/siteConstant.php';
 require_once 'lib/header_user.php';
@@ -22,6 +33,7 @@ $img3 = $result[0]['img3'];
 $img4 = $result[0]['img4'];
 $img5 = $result[0]['img5'];
 $img6 = $result[0]['img6'];
+$about = $result[0]['about'];
 $addCrausel = false;
 if($img1 != '' || $img2 != '' || $img3 != '' || $img4 != '' || $img5 != '' || $img6 != '' ){
     $addCrausel = true;
@@ -116,6 +128,115 @@ $imgPath = SITE_URL . 'eCommerce/assets/image/themeUpload/' . $result[0]['id']. 
         ?>
     </div>
 </div>
+<?php  
+if($showModel == ''){
+?>
+    <!-- Modal -->
+    <div id="myModal11" class="modal11">
+        <div class="modal11-content">
+            <!-- PHP code to dynamically load images -->
+            <div class="image11-container">
+                <img class="class1 col" src="giphy.gif" alt="Image">
+                <div class="modalContainer col mx-auto">
+                    <img class="modalImage" src="pngwing.com.png" alt="Your Image">
+                    <div class="modalText"><?php echo $about;?></div>
+                </div>
+                <img class="class2 col" src="giphy.gif" alt="Image">
+            </div>
+        </div>
+    </div>
+<?php }?>
+
+    <!-- JavaScript to control modal -->
+    <script>
+        // Get the modal
+        var modal = document.getElementById("myModal11");
+
+        // Display the modal when the page loads
+        window.onload = function () {
+            modal.style.display = "block";
+        };
+
+        // Close the modal when clicked outside of it
+        window.onclick = function (event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        };
+        $("#modalBtn").click(function (e) { 
+            console.log('hello');
+            
+        });
+    </script>
+<style>
+        /* CSS for modal */
+        .modal11 {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 9999;
+        }
+
+        .modal11-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            /* text-align: center; */
+            overflow: hidden;
+            /* Hide overflowing images */
+            width: 90%;
+            /* height: 100%; */
+            height: -webkit-fill-available;
+        }
+
+        .image11-container img {
+            /* width: calc(100% / 3); */
+            position: absolute;
+            top: 0;
+            transition: all 0.3s ease;
+        }
+
+        .class1 {
+            left: 0;
+            height: -webkit-fill-available;
+        }
+
+        .class2 {
+            right: 0;
+            -webkit-transform: scaleX(-1);
+            transform: scaleX(-1);
+            height: -webkit-fill-available;
+        }
+        .modalContainer {
+            position: relative;
+            width: 400px; /* Adjust the width and height according to your image */
+            height: 300px;
+        }
+        .modalImage {
+            height: 60%;
+            width: fit-content;
+        }
+        .modalText {
+            position: absolute;
+            top: 17%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            font-size: 24px;
+            width: max-content;
+            text-align: center;
+            font-family: Arial, sans-serif;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5); /* Optional: Add a text shadow for better readability */
+        }
+    </style>
 <style>
      .products, .footerTheme {
         background-color: <?php echo $color1;?> !important;

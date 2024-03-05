@@ -51,13 +51,6 @@ if($_POST['action'] == 'forgotAdminPassword'){
 $title = "Proto";
 require_once 'lib/siteConstant.php';
 
-//Email Varification
-// use PHPMailer\PHPMailer\PHPMailer;
-// use PHPMailer\PHPMailer\Exception;
-
-// require 'PHPMailer/src/Exception.php';
-// require 'PHPMailer/src/PHPMailer.php';
-// require 'PHPMailer/src/SMTP.php';
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 require 'assets/thirdparty/PHPmailer/src/Exception.php';
@@ -70,11 +63,11 @@ try {
   $mail->isSMTP();
   $mail->Host = 'smtp.gmail.com';
   $mail->SMTPAuth = true;
-  $mail->Username = ''; //your email
-  $mail->Password = ''; //your Password
+  $mail->Username = 'shopbyproto@gmail.com'; //your email
+  $mail->Password = 'jxkkpwdwbyjhegao'; //your Password
   $mail->SMTPSecure = 'ssl';
   $mail->Port = '465';
-  $mail->setFrom(''); //your email
+  $mail->setFrom('shopbyproto@gmail.com'); //your email
   $mail->addAddress(base64_decode($_GET['email']));
   $mail->isHTML(true);
   $otp = rand(1000, 9999);
