@@ -133,19 +133,21 @@ if($showModel == ''){
 ?>
     <!-- Modal -->
     <div id="myModal11" class="modal11">
-        <div class="modal11-content">
+        <div class="modal11-content mb-3">
             <!-- PHP code to dynamically load images -->
-            <div class="image11-container">
+            <div class="image11-container mb-3">
                 <img class="class1 col" src="giphy.gif" alt="Image">
-                <div class="modalContainer col mx-auto">
-                    <img class="modalImage" src="pngwing.com.png" alt="Your Image">
-                    <div class="modalText"><?php echo $about;?></div>
+                <div class="modalContainer col mx-auto footerTheme p-5 rounded-x mb-3">
+                    <!-- <img class="modalImage" src="pngwing.com.png" alt="Your Image"> -->
+                    <div class="text-center"><?php echo $about;?></div>
                 </div>
                 <img class="class2 col" src="giphy.gif" alt="Image">
             </div>
         </div>
     </div>
-<?php }?>
+<?php
+ }
+?>
 
     <!-- JavaScript to control modal -->
     <script>
@@ -189,12 +191,15 @@ if($showModel == ''){
             background-color: #fff;
             padding: 20px;
             border-radius: 10px;
-            /* text-align: center; */
+            text-align: center;
             overflow: hidden;
             /* Hide overflowing images */
             width: 90%;
             /* height: 100%; */
-            height: -webkit-fill-available;
+            /* height: -webkit-fill-available; */
+        }
+        .rounded-x{
+            border-radius: 90px !important;
         }
 
         .image11-container img {

@@ -24,7 +24,7 @@ if ($_POST['action'] == "deleteCartProduct") {
     echo $result;
     exit;
 }
-if($_POST['action'] == "coupon"){
+if ($_POST['action'] == "coupon") {
     $totalPr = $_POST['total'];
     $couponValue = $_POST['couponValue'];
     $conn = new Connection();
@@ -36,10 +36,9 @@ if($_POST['action'] == "coupon"){
     );
     $Result = $conn->select('coupons', '*', null, null, "coupon = :coupon", $data);
     $updateResult = $Result[0];
-    if($updateResult != ''){
+    if ($updateResult != '') {
         echo $updateResult['discount'];
-    }
-    else{
+    } else {
         echo 'fail';
     }
     exit;
@@ -55,12 +54,14 @@ if ($_POST['action'] == "addAddress") {
     $name = $_SESSION['userName'];
     $email = $_SESSION['userEmail'];
     $address = $_POST['value']['addAddressinput'];
+    $pincode = $_POST['value']['pincode'];
     $conn = new Connection();
     $dataArr = array(
         "customer_id" => $customer_id,
         "name" => $name,
         "email" => $email,
         "address" => $address,
+        "pincode" => $pincode,
     );
     $AddressAdd = $conn->insert('Customer_Address', $dataArr);
     if (is_numeric($AddressAdd)) {
@@ -268,19 +269,19 @@ if ($totalPrice > 0 && $totalPrice <= 400) {
                     <?php
                     if ($cartResultCount > 0) {
                         ?>
-                        <div class='multiship'>
-                            <label for="multiship">Allow Multiple Shipment : </label>
-                            <div class="form-switch ms-2">
-                                <input class="form-check-input" id="multiship" type="checkbox" checked>
+                            <div class='multiship'>
+                                <label for="multiship">Allow Multiple Shipment : </label>
+                                <div class="form-switch ms-2">
+                                    <input class="form-check-input" id="multiship" type="checkbox" checked>
+                                </div>
+                                <div class="multiadd">
+                                    <!-- Button trigger modal -->
+                                    <button type="button" class="btn products" data-bs-toggle="modal"
+                                        data-bs-target="#addAddressModal" style="background-color: #118383; color:white;">
+                                        Add Address
+                                    </button>
+                                </div>
                             </div>
-                            <div class="multiadd">
-                                <!-- Button trigger modal -->
-                                <button type="button" class="btn products" data-bs-toggle="modal"
-                                    data-bs-target="#addAddressModal" style="background-color: #118383; color:white;">
-                                    Add Address
-                                </button>
-                            </div>
-                        </div>
                     <?php } ?>
                     <div class="m-4">
                         <h4 class="card-title mb-4">Your shopping cart</h4>
@@ -294,87 +295,86 @@ if ($totalPrice > 0 && $totalPrice <= 400) {
 
                 </div>
             </div>
-            <?php if ($cartResultCount > 0) {?>
-            <div class="col-lg-3">
-                <div class="card shadow-0 border">
-                    <div class="col mt-3">
-                        <div class="input-group mb-3">
-      <input type="text" class="form-control" id="couponVal" placeholder="Coupon Apply" aria-label="Coupon Apply" aria-describedby="coupon">
-      <button class="btn btn-outline-success products" type="button" id="coupon">Apply</button>
-    </div>
-                    </div>
-                    <div class="mb-3 d-flex justify-content-between mt-2">
-                        <label for="" class="form-label h5">Shipping type : </label>
-                        <select class="form-select form-select w-50" name="shipval" id="shipval">
-                            <option value="1" selected>EKart</option>
-                            <option value="2">Local Courior</option>
-                            <option value="3">Local Pickup</option>
-                        </select>
-                    </div>
+            <?php if ($cartResultCount > 0) { ?>
+                <div class="col-lg-3">
+                    <div class="card shadow-0 border">
+                        <div class="col mt-3">
+                            <div class="input-group mb-3">
+          <input type="text" class="form-control" id="couponVal" placeholder="Coupon Apply" aria-label="Coupon Apply" aria-describedby="coupon">
+          <button class="btn btn-outline-success products" type="button" id="coupon">Apply</button>
+        </div>
+                        </div>
+                        <div class="mb-3 d-flex justify-content-between mt-2">
+                            <label for="" class="form-label h5">Shipping type : </label>
+                            <select class="form-select form-select w-50" name="shipval" id="shipval">
+                                <option value="1" selected>EKart</option>
+                                <option value="2">Local Courior</option>
+                                <option value="3">Local Pickup</option>
+                            </select>
+                        </div>
 
-                    <div class="card-body">
-                        <div class="d-flex justify-content-between">
-                            <p class="mb-2">Total price:</p>
-                            <p class="mb-2"><i class="fa-solid fa-indian-rupee-sign"></i>
-                                <span>
-                                    <?php echo $totalPrice ?>
-                                </span>
-                            </p>
-                        </div>
-                        <div class="d-flex justify-content-between">
-                            <p class="mb-2">TAX:</p>
-                            <p class="mb-2"><i class="fa-solid fa-indian-rupee-sign"></i>
-                                <?php echo ceil(($totalPrice * 5) / 100) ?>
-                            </p>
-                        </div>
-                        <div class="d-flex justify-content-between">
-                            <p class="mb-2">Delivery charges:</p>
-                            <p class="mb-2"><i class="fa-solid fa-indian-rupee-sign"></i><span id="deliveryCharges">
-                                    <?php echo $delieveryCharges ?>
-                                </span></p>
-                        </div>
-                        <?php
-                        if ($delieveryCharges == 0) {
-                            ?>
-                            <div class="d-flex justify-content-between" id="shipdef">
-                                <span class="text-success">Free Delivery (COD)</span>
-                            </div>
-                        <?php } ?>
-                        <div class="d-none" id="shipLocal">
+                        <div class="card-body">
                             <div class="d-flex justify-content-between">
-                                <span class="text-success">Local Pickup</span>
+                                <p class="mb-2">Total price:</p>
+                                <p class="mb-2"><i class="fa-solid fa-indian-rupee-sign"></i>
+                                    <span>
+                                        <?php echo $totalPrice ?>
+                                    </span>
+                                </p>
                             </div>
-                        </div>
-                        <hr>
-                        <div class="d-flex justify-content-between">
-                            <p class="mb-2">Total price:</p>
-                            <p class="mb-2 fw-bold"><i class="fa-solid fa-indian-rupee-sign"></i>
-                                <span class="totalShow">
-                                    <?php
-                                    if ($delieveryCharges > 0) {
-                                        echo $totalPrice + ceil(($totalPrice * 5) / 100) + 30;
-                                        $totalPrice = $totalPrice + 30;
-                                    }
-                                    else{
-                                        echo $totalPrice + ceil(($totalPrice * 5) / 100);
-                                    }
-                                    ?>
-                                </span>
-                            </p>
-                        </div>
-                        <div class="mt-3">
+                            <div class="d-flex justify-content-between">
+                                <p class="mb-2">TAX:</p>
+                                <p class="mb-2"><i class="fa-solid fa-indian-rupee-sign"></i>
+                                    <?php echo ceil(($totalPrice * 5) / 100) ?>
+                                </p>
+                            </div>
+                            <div class="d-flex justify-content-between">
+                                <p class="mb-2">Delivery charges:</p>
+                                <p class="mb-2"><i class="fa-solid fa-indian-rupee-sign"></i><span id="deliveryCharges">
+                                        <?php echo $delieveryCharges ?>
+                                    </span></p>
+                            </div>
+                            <?php
+                            if ($delieveryCharges == 0) {
+                                ?>
+                                    <div class="d-flex justify-content-between" id="shipdef">
+                                        <span class="text-success">Free Delivery (COD)</span>
+                                    </div>
+                            <?php } ?>
+                            <div class="d-none" id="shipLocal">
+                                <div class="d-flex justify-content-between">
+                                    <span class="text-success">Local Pickup</span>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="d-flex justify-content-between">
+                                <p class="mb-2">Total price:</p>
+                                <p class="mb-2 fw-bold"><i class="fa-solid fa-indian-rupee-sign"></i>
+                                    <span class="totalShow">
+                                        <?php
+                                        if ($delieveryCharges > 0) {
+                                            echo $totalPrice + ceil(($totalPrice * 5) / 100) + 30;
+                                            $totalPrice = $totalPrice + 30;
+                                        } else {
+                                            echo $totalPrice + ceil(($totalPrice * 5) / 100);
+                                        }
+                                        ?>
+                                    </span>
+                                </p>
+                            </div>
+                            <div class="mt-3">
 
-                            <div class="col">
-                                <!-- Button trigger modal -->
-                                <button type="button" class="btn products products btn btn-success w-100 shadow-0 mb-2"
-                                    data-bs-toggle="modal" data-bs-target="#addAddressModal1"
-                                    style="background-color: #118383; color:white;">
-                                    Payment
-                                </button>
-                            </div>
-                            <?php }?>
+                                <div class="col">
+                                    <!-- Button trigger modal -->
+                                    <button type="button" class="btn products products btn btn-success w-100 shadow-0 mb-2"
+                                        data-bs-toggle="modal" data-bs-target="#addAddressModal1"
+                                        style="background-color: #118383; color:white;">
+                                        Payment
+                                    </button>
+                                </div>
+                            <?php } ?>
     </form>
-    <?php 
+    <?php
     ?>
     <a href="<?php echo SITE_URL; ?>eCommerce/index.php" class="btn btn-outline-secondary w-100 border mt-2"> Back to
         shop </a>
@@ -401,15 +401,70 @@ if ($totalPrice > 0 && $totalPrice <= 400) {
                         Enter Address
                     </div>
                 </div>
+                <div class="mb-2">
+                <div class=" g-3 align-items-center">
+                    <div class="">
+                        <label for="pincode" class="col-form-label">Picode</label>
+                    </div>
+                    <div class="">
+                        <input type="number" id="pincode" name="pincode" class="form-control" aria-describedby="passwordHelpInline">
+                    </div>
+                    <div class="">
+                        <span id="passwordHelpInline" class="form-text">
+                        Must be 4 to 6 number long.
+                        </span>
+                    </div>
+                    </div>
+                </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                <button type="button" id="" class="addAddress btn btn-success">Add</button>
+                <button type="button" id="addAddress" class="btn btn-success">Add</button>
             </div>
         </div>
     </div>
 </div>
-
+<script>
+    //Add Address
+$(document).on("click","#addAddress",function(){
+  var delay = 2000;
+   if($("#street_Address").val() == "" || $("#pincode").val() == null){
+    $("#addAddressValidation").html("<small class='text-danger'>Fill Address!!!</small>");
+   }
+   else{
+    $.ajax({
+      type: "post",
+      data: {
+        "action": "addAddress",
+        "value": {
+          "addAddressinput": $("#street_Address").val(),
+          "pincode": $("#pincode").val(),
+        }
+      },
+      success: function (response) {
+        if (response == "Success") {
+          Swal.fire(
+            'New Address Added!!!',
+            '',
+            'success'
+          );
+          setTimeout(function () {
+            window.location.href = 'cart.php';
+          }, delay);
+  
+        } else {
+  
+          Swal.fire({
+            icon: 'error',
+            title: 'Address Adding Failed',
+            text: 'Please enter Again!!!',
+          })
+        }
+      }
+    });
+   }
+  })
+</script>
 <!-- Modal -->
 <div class="modal fade" id="addAddressModal1" tabindex="-1" aria-labelledby="addAddressModal1Label" aria-hidden="true">
     <div class="modal-dialog">
@@ -839,6 +894,44 @@ if ($totalPrice > 0 && $totalPrice <= 400) {
             'success'
         )
     }).trigger();
+//      //Add Address
+// $(document).on("click","#addAddress",function(){
+//   var delay = 2000;
+//    if($("#addAddressinput").val().trim() == ""){
+//     $("#addAddressValidation").html("<small class='text-danger'>Fill Address!!!</small>");
+//    }
+//    else{
+//     $.ajax({
+//       type: "post",
+//       data: {
+//         "action": "addAddress",
+//         "value": {
+//           "addAddressinput": $("#addAddressinput").val(),
+//         }
+//       },
+//       success: function (response) {
+//         if (response == "Success") {
+//           Swal.fire(
+//             'New Address Added!!!',
+//             '',
+//             'success'
+//           );
+//           setTimeout(function () {
+//             window.location.href = 'cart.php';
+//           }, delay);
+  
+//         } else {
+  
+//           Swal.fire({
+//             icon: 'error',
+//             title: 'Address Adding Failed',
+//             text: 'Please enter Again!!!',
+//           })
+//         }
+//       }
+//     });
+//    }
+//   })
     
 </script>
 <?php
