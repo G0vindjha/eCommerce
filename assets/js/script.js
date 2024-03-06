@@ -405,8 +405,42 @@ $("#resetPassword").click(function () {
       }
     }
   });
-  //Add Address
-  $(document).on("click","#addAddress",function(){
-    console.log("hello");
-  })
+//    //Add Address
+// $(document).on("click","#addAddress",function(){
+//   var delay = 2000;
+//    if($("#addAddressinput").val().trim() == ""){
+//     $("#addAddressValidation").html("<small class='text-danger'>Fill Address!!!</small>");
+//    }
+//    else{
+//     $.ajax({
+//       type: "post",
+//       data: {
+//         "action": "addAddress",
+//         "value": {
+//           "addAddressinput": $("#addAddressinput").val(),
+//         }
+//       },
+//       success: function (response) {
+//         if (response == "Success") {
+//           Swal.fire(
+//             'New Address Added!!!',
+//             '',
+//             'success'
+//           );
+//           setTimeout(function () {
+//             window.location.href = 'cart.php';
+//           }, delay);
+  
+//         } else {
+  
+//           Swal.fire({
+//             icon: 'error',
+//             title: 'Address Adding Failed',
+//             text: 'Please enter Again!!!',
+//           })
+//         }
+//       }
+//     });
+//    }
+//   })
 });
